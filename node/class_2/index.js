@@ -11,16 +11,22 @@ const server = http.createServer((req, res) => {
                 return;
             }
         })
-        fs.readFile("FS/example1.txt", 'utf8', (e, d) => {
-            if(e){
-                console.dir(e);
-                return;
-            }
+        // fs.readFile("FS/example1.txt", 'utf8', (e, d) => {
+        //     if(e){
+        //         console.dir(e);
+        //         return;
+        //     }
+        //     res.writeHead(200, { 'Content-Type' : "text/plain"})
+        //     res.end(`File data: ${d}`);
+        // })
+        try {
+            const data = fs.readFileSync("FS/example.txt", "utf8");
             res.writeHead(200, { 'Content-Type' : "text/plain"})
-            res.end(`File data: ${d}`);
-        })
-        const data = fs.readFileSync("FS/example.txt", "utf8");
-        res.end(data);
+            res.end(data);
+        } catch (e) {
+            res.writeHead(500, { 'Content-Type' : "text/plain"})
+            console.log(e);
+        }
     }
 })
 
