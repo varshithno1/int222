@@ -5,11 +5,10 @@ const port = 9090;
 http.createServer((req, res) => {
     if(req.url == "/"){
         fs.readFile("public/example1.txt", (e, d) => {
-            if(
+            if(e)
                 console.log("ERROR: ", e);
                 res.end("ERROR!! - Check console.");
-            }
-            else{
+            }else{
                 // res.end(d);
                 fs.writeFile("public/example2.txt", d, (e) => {
                     if(e){

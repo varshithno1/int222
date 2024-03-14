@@ -24,12 +24,22 @@ http.createServer((req, res) => {
         })
         req.on('end', () => {
             const formData = querystring.parse(body);
-            console.log(formData);
-            // const { name, email } = formData;
-            const writableStream = fs.createWriteStream('public/details.csv');
-            writableStream.write(formData);
-            writableStream.end();
+            const data = JSON.stringify(formData);
+            console.log(data);
+            // fs.writeFile("public/data.json", data, (e) => {
+            //     if(e){
+            //         console.error("ERROR Writing!! ", e);
+            //         res.end("See console");
+            //     }
+            //     else{
+            //         res.end("Sucessful");
+            //     }
+            // })
+            const writeStram = fs.createWriteStream("public/data.json");
+            writeStram.write(data);
+            writeStram.end();
         })
+        res.end("Done");
     }
     else {
       res.end("404 Not Found");
